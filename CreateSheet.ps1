@@ -62,16 +62,13 @@ function Get-Result {
     Begin {}
 
     Process {
-        Write-Host "$($a) $($opp) $($b)"
         switch ($opp) {
-            "+" { Write-Host "+"; return $($a + $b) }
-            "-" { Write-Host "-"; return $($a - $b) }
-            "*" { Write-Host "*"; return $($a * $b) }
-            ":" { Write-Host "/"; return $($a / $b) }
+            "-" { return $($a - $b) }
+            "*" { return $($a * $b) }
+            "+" { return $($a + $b) }
+            ":" { return $($a / $b) }
             default { return 0 }
         }
-
-        throw "Kacke"
     }
 
     End {}
@@ -133,8 +130,3 @@ $dt | Select-Object -Property `
     @{ name = '='; expr = { "=" } }, `
     @{ name = "Result"; expr = { Get-Result -a $_.NumberA -b $_.NumberB -opp $_.Opp }} `
     | Export-Csv -Path "Solution.csv" -Force -NoTypeInformation -Delimiter ";"
-
-
-foreach($r in $dt) {
-    Get-Result $r.NumberA $r.NumberB $r.Opp
-}
